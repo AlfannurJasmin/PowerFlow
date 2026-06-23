@@ -1,0 +1,37 @@
+services:
+  influxdb:
+    image: influxdb:2.7
+    container_name: powerflow-influxdb
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: powerflow2026
+      DOCKER_INFLUXDB_INIT_ORG: powerflow-org
+      DOCKER_INFLUXDB_INIT_BUCKET: powerflow
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: powerflow-super-secret-token-2026
+    volumes:
+      - influxdb-data:/var/lib/influxdb2
+
+  grafana:
+    image: grafana/grafana:11.0.0
+    container_name: powerflow-grafana
+    restart: unless-stopped
+    depends_on:
+      - influxdb
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - grafana-data:/var/lib/grafana
+
+volumes:
+  influxdb-data:
+  grafana-data:
