@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PowerFlow - USB Power Bank Production Line Simulator</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --accent:#00e676; --text:#e8e8e8; --muted:#9aa0a6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:'Segoe UI', Arial, sans-serif; background:var(--bg); color:var(--text);
+    line-height:1.6;
+  }
+  header{
+    padding:60px 20px 40px; text-align:center; background:linear-gradient(180deg,#1b1f29,#0f1115);
+    border-bottom:1px solid #232733;
+  }
+  header h1{font-size:2.2rem; margin:0 0 10px;}
+  header p{color:var(--muted); max-width:600px; margin:0 auto;}
+  main{max-width:900px; margin:0 auto; padding:40px 20px;}
+  section{margin-bottom:50px;}
+  h2{color:var(--accent); border-bottom:1px solid #232733; padding-bottom:8px;}
+  .pipeline{
+    display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0;
+  }
+  .stage{
+    background:var(--panel); border:1px solid #232733; border-radius:8px; padding:14px 18px;
+    font-size:0.9rem; text-align:center;
+  }
+  .arrow{align-self:center; color:var(--muted);}
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media (max-width:700px){ .grid{grid-template-columns:1fr;} }
+  .card{background:var(--panel); border:1px solid #232733; border-radius:10px; padding:20px;}
+  .card h3{margin-top:0; color:var(--accent);}
+  .placeholder{
+    width:100%; min-height:280px; border:2px dashed #3a4150; border-radius:8px;
+    display:flex; align-items:center; justify-content:center; color:var(--muted);
+    font-size:0.9rem; margin:10px 0; text-align:center; padding:20px;
+  }
+  footer{text-align:center; padding:30px; color:var(--muted); font-size:0.85rem;}
+  a{color:var(--accent);}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>PowerFlow</h1>
+  <p>A simulated USB power bank production line with a live operator HMI, time-series monitoring via InfluxDB, and a real-time Grafana dashboard &mdash; built for the Advanced Programming course at SRH Fernhochschule.</p>
+</header>
+
+<main>
+
+  <section>
+    <h2>Production Line Concept</h2>
+    <p>The simulator models a 5-stage assembly line for a USB power bank. Each unit passes through every stage in sequence; any stage can randomly trigger a fault, which marks the unit defective and halts the line until the operator resets it.</p>
+    <div class="pipeline">
+      <div class="stage">Battery<br>Installation</div>
+      <div class="arrow">&rarr;</div>
+      <div class="stage">PCB<br>Installation</div>
+      <div class="arrow">&rarr;</div>
+      <div class="stage">Case<br>Assembly</div>
+      <div class="arrow">&rarr;</div>
+      <div class="stage">Quality<br>Testing</div>
+      <div class="arrow">&rarr;</div>
+      <div class="stage">Finished<br>Product</div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h3>Operator HMI</h3>
+      <p>Start, stop, and reset the line. Live state, current stage, product counters, and an event log are shown in real time.</p>
+      <div class="placeholder">[ INSERT GUI SCREENSHOT HERE ]</div>
+    </div>
+    <div class="card">
+      <h3>Grafana Dashboard</h3>
+      <p>Products produced and defective products are charted over time, alongside the current machine state, pulled live from InfluxDB.</p>
+      <div class="placeholder">[ INSERT GRAFANA SCREENSHOT HERE ]</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tech Stack</h2>
+    <ul>
+      <li><strong>Backend:</strong> Python (threading-based finite state machine)</li>
+      <li><strong>Frontend / HMI:</strong> Tkinter</li>
+      <li><strong>Database:</strong> InfluxDB 2.x (time-series)</li>
+      <li><strong>Dashboard:</strong> Grafana (auto-provisioned)</li>
+      <li><strong>Deployment:</strong> Docker Compose</li>
+      <li><strong>Version control:</strong> Git + GitHub</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Source Code</h2>
+    <p>Full source is available on <a href="https://github.com/AlfannurJasmin/PowerFlow" target="_blank">GitHub</a>.</p>
+  </section>
+
+</main>
+
+<footer>
+  PowerFlow &mdash; Advanced Programming Project, SRH Fernhochschule, June 2026
+</footer>
+
+</body>
+</html>
